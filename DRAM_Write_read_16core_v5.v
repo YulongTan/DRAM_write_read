@@ -192,6 +192,17 @@ module DRAM_write_read_16core(
     reg [1:0]    DEMUX_ADD16_nr1  ;
     reg          DEMUX_ADD_3_nr1  ;
     reg                IO_EN_nr1;
+    // 400MHz域输出寄存以及100MHz域两级同步寄存
+    reg [7:0] DRAM_DATA_OUT1_r;  reg [7:0] DRAM_DATA_OUT2_r;  reg [7:0] DRAM_DATA_OUT3_r;  reg [7:0] DRAM_DATA_OUT4_r;
+    reg [7:0] DRAM_DATA_OUT5_r;  reg [7:0] DRAM_DATA_OUT6_r;  reg [7:0] DRAM_DATA_OUT7_r;  reg [7:0] DRAM_DATA_OUT8_r;
+    reg [7:0] DRAM_DATA_OUT9_r;  reg [7:0] DRAM_DATA_OUT10_r; reg [7:0] DRAM_DATA_OUT11_r; reg [7:0] DRAM_DATA_OUT12_r;
+    reg [7:0] DRAM_DATA_OUT13_r; reg [7:0] DRAM_DATA_OUT14_r; reg [7:0] DRAM_DATA_OUT15_r; reg [7:0] DRAM_DATA_OUT16_r;
+    reg       RD_DONE_r; reg WT_DONE_r;
+    reg [7:0] DRAM_DATA_OUT1_nr1;  reg [7:0] DRAM_DATA_OUT2_nr1;  reg [7:0] DRAM_DATA_OUT3_nr1;  reg [7:0] DRAM_DATA_OUT4_nr1;
+    reg [7:0] DRAM_DATA_OUT5_nr1;  reg [7:0] DRAM_DATA_OUT6_nr1;  reg [7:0] DRAM_DATA_OUT7_nr1;  reg [7:0] DRAM_DATA_OUT8_nr1;
+    reg [7:0] DRAM_DATA_OUT9_nr1;  reg [7:0] DRAM_DATA_OUT10_nr1; reg [7:0] DRAM_DATA_OUT11_nr1; reg [7:0] DRAM_DATA_OUT12_nr1;
+    reg [7:0] DRAM_DATA_OUT13_nr1; reg [7:0] DRAM_DATA_OUT14_nr1; reg [7:0] DRAM_DATA_OUT15_nr1; reg [7:0] DRAM_DATA_OUT16_nr1;
+    reg       RD_DONE_nr1; reg WT_DONE_nr1;
     always @( posedge clk_100m or negedge rst_n) begin
         if (!rst_n) begin
                 IO_MODEL_nr1      <= 2'b00;
@@ -572,6 +583,49 @@ module DRAM_write_read_16core(
             end
         end
     end
+
+    // 400MHz -> 100MHz 跨时钟域同步，打两拍
+    always @(posedge clk_100m or negedge rst_n) begin
+        if(!rst_n) begin
+            DRAM_DATA_OUT1_nr1 <= 8'd0;  DRAM_DATA_OUT1 <= 8'd0;
+            DRAM_DATA_OUT2_nr1 <= 8'd0;  DRAM_DATA_OUT2 <= 8'd0;
+            DRAM_DATA_OUT3_nr1 <= 8'd0;  DRAM_DATA_OUT3 <= 8'd0;
+            DRAM_DATA_OUT4_nr1 <= 8'd0;  DRAM_DATA_OUT4 <= 8'd0;
+            DRAM_DATA_OUT5_nr1 <= 8'd0;  DRAM_DATA_OUT5 <= 8'd0;
+            DRAM_DATA_OUT6_nr1 <= 8'd0;  DRAM_DATA_OUT6 <= 8'd0;
+            DRAM_DATA_OUT7_nr1 <= 8'd0;  DRAM_DATA_OUT7 <= 8'd0;
+            DRAM_DATA_OUT8_nr1 <= 8'd0;  DRAM_DATA_OUT8 <= 8'd0;
+            DRAM_DATA_OUT9_nr1 <= 8'd0;  DRAM_DATA_OUT9 <= 8'd0;
+            DRAM_DATA_OUT10_nr1 <= 8'd0; DRAM_DATA_OUT10 <= 8'd0;
+            DRAM_DATA_OUT11_nr1 <= 8'd0; DRAM_DATA_OUT11 <= 8'd0;
+            DRAM_DATA_OUT12_nr1 <= 8'd0; DRAM_DATA_OUT12 <= 8'd0;
+            DRAM_DATA_OUT13_nr1 <= 8'd0; DRAM_DATA_OUT13 <= 8'd0;
+            DRAM_DATA_OUT14_nr1 <= 8'd0; DRAM_DATA_OUT14 <= 8'd0;
+            DRAM_DATA_OUT15_nr1 <= 8'd0; DRAM_DATA_OUT15 <= 8'd0;
+            DRAM_DATA_OUT16_nr1 <= 8'd0; DRAM_DATA_OUT16 <= 8'd0;
+            RD_DONE_nr1 <= 1'b0; RD_DONE <= 1'b0;
+            WT_DONE_nr1 <= 1'b0; WT_DONE <= 1'b0;
+        end else begin
+            DRAM_DATA_OUT1_nr1 <= DRAM_DATA_OUT1_r;  DRAM_DATA_OUT1 <= DRAM_DATA_OUT1_nr1;
+            DRAM_DATA_OUT2_nr1 <= DRAM_DATA_OUT2_r;  DRAM_DATA_OUT2 <= DRAM_DATA_OUT2_nr1;
+            DRAM_DATA_OUT3_nr1 <= DRAM_DATA_OUT3_r;  DRAM_DATA_OUT3 <= DRAM_DATA_OUT3_nr1;
+            DRAM_DATA_OUT4_nr1 <= DRAM_DATA_OUT4_r;  DRAM_DATA_OUT4 <= DRAM_DATA_OUT4_nr1;
+            DRAM_DATA_OUT5_nr1 <= DRAM_DATA_OUT5_r;  DRAM_DATA_OUT5 <= DRAM_DATA_OUT5_nr1;
+            DRAM_DATA_OUT6_nr1 <= DRAM_DATA_OUT6_r;  DRAM_DATA_OUT6 <= DRAM_DATA_OUT6_nr1;
+            DRAM_DATA_OUT7_nr1 <= DRAM_DATA_OUT7_r;  DRAM_DATA_OUT7 <= DRAM_DATA_OUT7_nr1;
+            DRAM_DATA_OUT8_nr1 <= DRAM_DATA_OUT8_r;  DRAM_DATA_OUT8 <= DRAM_DATA_OUT8_nr1;
+            DRAM_DATA_OUT9_nr1 <= DRAM_DATA_OUT9_r;  DRAM_DATA_OUT9 <= DRAM_DATA_OUT9_nr1;
+            DRAM_DATA_OUT10_nr1 <= DRAM_DATA_OUT10_r; DRAM_DATA_OUT10 <= DRAM_DATA_OUT10_nr1;
+            DRAM_DATA_OUT11_nr1 <= DRAM_DATA_OUT11_r; DRAM_DATA_OUT11 <= DRAM_DATA_OUT11_nr1;
+            DRAM_DATA_OUT12_nr1 <= DRAM_DATA_OUT12_r; DRAM_DATA_OUT12 <= DRAM_DATA_OUT12_nr1;
+            DRAM_DATA_OUT13_nr1 <= DRAM_DATA_OUT13_r; DRAM_DATA_OUT13 <= DRAM_DATA_OUT13_nr1;
+            DRAM_DATA_OUT14_nr1 <= DRAM_DATA_OUT14_r; DRAM_DATA_OUT14 <= DRAM_DATA_OUT14_nr1;
+            DRAM_DATA_OUT15_nr1 <= DRAM_DATA_OUT15_r; DRAM_DATA_OUT15 <= DRAM_DATA_OUT15_nr1;
+            DRAM_DATA_OUT16_nr1 <= DRAM_DATA_OUT16_r; DRAM_DATA_OUT16 <= DRAM_DATA_OUT16_nr1;
+            RD_DONE_nr1 <= RD_DONE_r; RD_DONE <= RD_DONE_nr1;
+            WT_DONE_nr1 <= WT_DONE_r; WT_DONE <= WT_DONE_nr1;
+        end
+    end
     assign DE_ADD3 = DEMUX_ADD3_r;
     always @(posedge clk_400m or negedge rst_n)begin
         if(!rst_n)begin 
@@ -611,8 +665,8 @@ module DRAM_write_read_16core(
             ADD_IN<=0; 
             ADD_VALID_IN<=1; 
             WRI_EN<=0; 
-            WR_flag<=0; // DATA_VALID_IN 低电平有效 
-            WT_DONE <= 0;
+            WR_flag<=0; // DATA_VALID_IN 低电平有效
+            WT_DONE_r <= 0;
         end
         else begin
             // if (IO_EN_FLAG && (IO_MODEL_r == 2'b01) ) begin
@@ -623,7 +677,7 @@ module DRAM_write_read_16core(
                 // ================= 第 1 轮（索引 0,8,16,24,32,40,48,56） =================
                 13'd0:   begin
                             D_IN <= 16'd0; PC_D_IN <= 2'd0; clk_out_WT <= 1'b0;
-                            DATA_VALID_IN<=1; ADD_IN<=0; ADD_VALID_IN<=1; WRI_EN<=0;  WR_flag<=0; WT_DONE<=0;
+                            DATA_VALID_IN<=1; ADD_IN<=0; ADD_VALID_IN<=1; WRI_EN<=0;  WR_flag<=0; WT_DONE_r<=0;
                         end
                 13'd1:   begin
                             DATA_VALID_IN<=1; ADD_IN<=0; ADD_VALID_IN<=1; WRI_EN<=0; WR_flag<=1;
@@ -2105,8 +2159,8 @@ module DRAM_write_read_16core(
                 13'd3220: begin end
                 13'd3222: begin end
                 13'd3224: begin WRI_EN<=1; WR_flag<=0; end
-                13'd3226: begin  WT_DONE <= 1; end
-                13'd3230: begin  WT_DONE <= 0; end
+                13'd3226: begin  WT_DONE_r <= 1; end
+                13'd3230: begin  WT_DONE_r <= 0; end
                 default: begin end
                 endcase
             end
@@ -2147,9 +2201,9 @@ module DRAM_write_read_16core(
     end
     always @(posedge clk_400m or negedge rst_n) begin
         if(!rst_n)begin
-            DRAM_DATA_OUT1 <= 8'd0; DRAM_DATA_OUT2 <= 8'd0; DRAM_DATA_OUT3 <= 8'd0; DRAM_DATA_OUT4 <= 8'd0; DRAM_DATA_OUT5 <= 8'd0; DRAM_DATA_OUT6 <= 8'd0; DRAM_DATA_OUT7 <= 8'd0; DRAM_DATA_OUT8 <= 8'd0; 
-            DRAM_DATA_OUT9 <= 8'd0; DRAM_DATA_OUT10 <= 8'd0; DRAM_DATA_OUT11 <= 8'd0; DRAM_DATA_OUT12 <= 8'd0; DRAM_DATA_OUT13 <= 8'd0; DRAM_DATA_OUT14 <= 8'd0; DRAM_DATA_OUT15 <= 8'd0; DRAM_DATA_OUT16 <= 8'd0;
-            RD_DONE <= 1'b0; RD_EN_pre <= 1'b0; REF_WWL <= 1'b1;
+            DRAM_DATA_OUT1_r <= 8'd0; DRAM_DATA_OUT2_r <= 8'd0; DRAM_DATA_OUT3_r <= 8'd0; DRAM_DATA_OUT4_r <= 8'd0; DRAM_DATA_OUT5_r <= 8'd0; DRAM_DATA_OUT6_r <= 8'd0; DRAM_DATA_OUT7_r <= 8'd0; DRAM_DATA_OUT8_r <= 8'd0;
+            DRAM_DATA_OUT9_r <= 8'd0; DRAM_DATA_OUT10_r <= 8'd0; DRAM_DATA_OUT11_r <= 8'd0; DRAM_DATA_OUT12_r <= 8'd0; DRAM_DATA_OUT13_r <= 8'd0; DRAM_DATA_OUT14_r <= 8'd0; DRAM_DATA_OUT15_r <= 8'd0; DRAM_DATA_OUT16_r <= 8'd0;
+            RD_DONE_r <= 1'b0; RD_EN_pre <= 1'b0; REF_WWL <= 1'b1;
             PC_R_AD <= 2'd0; R_AD <= 16'd0;
             // PC_DATA串转并控制信号
             PC_DATA_CLK <= 1'b0;
@@ -2161,9 +2215,9 @@ module DRAM_write_read_16core(
             if ( Read_en_r ) begin
                 case(counter_work)
                 13'd0: begin
-                    DRAM_DATA_OUT1 <= 8'd0; DRAM_DATA_OUT2 <= 8'd0; DRAM_DATA_OUT3 <= 8'd0; DRAM_DATA_OUT4 <= 8'd0; DRAM_DATA_OUT5 <= 8'd0; DRAM_DATA_OUT6 <= 8'd0; DRAM_DATA_OUT7 <= 8'd0; DRAM_DATA_OUT8 <= 8'd0; 
-                    DRAM_DATA_OUT9 <= 8'd0; DRAM_DATA_OUT10 <= 8'd0; DRAM_DATA_OUT11 <= 8'd0; DRAM_DATA_OUT12 <= 8'd0; DRAM_DATA_OUT13 <= 8'd0; DRAM_DATA_OUT14 <= 8'd0; DRAM_DATA_OUT15 <= 8'd0; DRAM_DATA_OUT16 <= 8'd0;
-                    RD_DONE <= 1'b0; RD_EN_pre <= 1'b0; REF_WWL <= 1'b1;
+                    DRAM_DATA_OUT1_r <= 8'd0; DRAM_DATA_OUT2_r <= 8'd0; DRAM_DATA_OUT3_r <= 8'd0; DRAM_DATA_OUT4_r <= 8'd0; DRAM_DATA_OUT5_r <= 8'd0; DRAM_DATA_OUT6_r <= 8'd0; DRAM_DATA_OUT7_r <= 8'd0; DRAM_DATA_OUT8_r <= 8'd0;
+                    DRAM_DATA_OUT9_r <= 8'd0; DRAM_DATA_OUT10_r <= 8'd0; DRAM_DATA_OUT11_r <= 8'd0; DRAM_DATA_OUT12_r <= 8'd0; DRAM_DATA_OUT13_r <= 8'd0; DRAM_DATA_OUT14_r <= 8'd0; DRAM_DATA_OUT15_r <= 8'd0; DRAM_DATA_OUT16_r <= 8'd0;
+                    RD_DONE_r <= 1'b0; RD_EN_pre <= 1'b0; REF_WWL <= 1'b1;
                     PC_R_AD <= 2'd0; R_AD <= 16'd0;
                     PC_DATA_CLK <= 1'b0;
                     PC_DATA_CLK_INH <= 1'b0;
@@ -2348,166 +2402,166 @@ module DRAM_write_read_16core(
                 13'd349: begin end
                 13'd350: begin 
                     PC_DATA_CLK <= 1'b0;
-                    DRAM_DATA_OUT1 [0] <= DRAM16_data[1];
-                    DRAM_DATA_OUT2 [0] <= DRAM16_data[2];
-                    DRAM_DATA_OUT3 [0] <= DRAM16_data[3];
-                    DRAM_DATA_OUT4 [0] <= DRAM16_data[4];
-                    DRAM_DATA_OUT5 [0] <= DRAM16_data[5];
-                    DRAM_DATA_OUT6 [0] <= DRAM16_data[6];
-                    DRAM_DATA_OUT7 [0] <= DRAM16_data[7];
-                    DRAM_DATA_OUT8 [0] <= DRAM16_data[8];
-                    DRAM_DATA_OUT9 [0] <= DRAM16_data[9];
-                    DRAM_DATA_OUT10[0] <= DRAM16_data[10];
-                    DRAM_DATA_OUT11[0] <= DRAM16_data[11];
-                    DRAM_DATA_OUT12[0] <= DRAM16_data[12];
-                    DRAM_DATA_OUT13[0] <= DRAM16_data[13];
-                    DRAM_DATA_OUT14[0] <= DRAM16_data[14];
-                    DRAM_DATA_OUT15[0] <= DRAM16_data[15];
-                    DRAM_DATA_OUT16[0] <= DRAM16_data[16];
+                    DRAM_DATA_OUT1_r [0] <= DRAM16_data[1];
+                    DRAM_DATA_OUT2_r [0] <= DRAM16_data[2];
+                    DRAM_DATA_OUT3_r [0] <= DRAM16_data[3];
+                    DRAM_DATA_OUT4_r [0] <= DRAM16_data[4];
+                    DRAM_DATA_OUT5_r [0] <= DRAM16_data[5];
+                    DRAM_DATA_OUT6_r [0] <= DRAM16_data[6];
+                    DRAM_DATA_OUT7_r [0] <= DRAM16_data[7];
+                    DRAM_DATA_OUT8_r [0] <= DRAM16_data[8];
+                    DRAM_DATA_OUT9_r [0] <= DRAM16_data[9];
+                    DRAM_DATA_OUT10_r [0] <= DRAM16_data[10];
+                    DRAM_DATA_OUT11_r [0] <= DRAM16_data[11];
+                    DRAM_DATA_OUT12_r [0] <= DRAM16_data[12];
+                    DRAM_DATA_OUT13_r [0] <= DRAM16_data[13];
+                    DRAM_DATA_OUT14_r [0] <= DRAM16_data[14];
+                    DRAM_DATA_OUT15_r [0] <= DRAM16_data[15];
+                    DRAM_DATA_OUT16_r [0] <= DRAM16_data[16];
                 end
                 13'd370: begin PC_DATA_CLK <= 1'b1; end
                 13'd390: begin 
                     PC_DATA_CLK <= 1'b0;
-                    DRAM_DATA_OUT1 [1] <= DRAM16_data[1];
-                    DRAM_DATA_OUT2 [1] <= DRAM16_data[2];
-                    DRAM_DATA_OUT3 [1] <= DRAM16_data[3];
-                    DRAM_DATA_OUT4 [1] <= DRAM16_data[4];
-                    DRAM_DATA_OUT5 [1] <= DRAM16_data[5];
-                    DRAM_DATA_OUT6 [1] <= DRAM16_data[6];
-                    DRAM_DATA_OUT7 [1] <= DRAM16_data[7];
-                    DRAM_DATA_OUT8 [1] <= DRAM16_data[8];
-                    DRAM_DATA_OUT9 [1] <= DRAM16_data[9];
-                    DRAM_DATA_OUT10[1] <= DRAM16_data[10];
-                    DRAM_DATA_OUT11[1] <= DRAM16_data[11];
-                    DRAM_DATA_OUT12[1] <= DRAM16_data[12];
-                    DRAM_DATA_OUT13[1] <= DRAM16_data[13];
-                    DRAM_DATA_OUT14[1] <= DRAM16_data[14];
-                    DRAM_DATA_OUT15[1] <= DRAM16_data[15];
-                    DRAM_DATA_OUT16[1] <= DRAM16_data[16];
+                    DRAM_DATA_OUT1_r [1] <= DRAM16_data[1];
+                    DRAM_DATA_OUT2_r [1] <= DRAM16_data[2];
+                    DRAM_DATA_OUT3_r [1] <= DRAM16_data[3];
+                    DRAM_DATA_OUT4_r [1] <= DRAM16_data[4];
+                    DRAM_DATA_OUT5_r [1] <= DRAM16_data[5];
+                    DRAM_DATA_OUT6_r [1] <= DRAM16_data[6];
+                    DRAM_DATA_OUT7_r [1] <= DRAM16_data[7];
+                    DRAM_DATA_OUT8_r [1] <= DRAM16_data[8];
+                    DRAM_DATA_OUT9_r [1] <= DRAM16_data[9];
+                    DRAM_DATA_OUT10_r [1] <= DRAM16_data[10];
+                    DRAM_DATA_OUT11_r [1] <= DRAM16_data[11];
+                    DRAM_DATA_OUT12_r [1] <= DRAM16_data[12];
+                    DRAM_DATA_OUT13_r [1] <= DRAM16_data[13];
+                    DRAM_DATA_OUT14_r [1] <= DRAM16_data[14];
+                    DRAM_DATA_OUT15_r [1] <= DRAM16_data[15];
+                    DRAM_DATA_OUT16_r [1] <= DRAM16_data[16];
                 end
                 13'd410: begin PC_DATA_CLK <= 1'b1; end
                 13'd430: begin 
                     PC_DATA_CLK <= 1'b0;
-                    DRAM_DATA_OUT1 [2] <= DRAM16_data[1];
-                    DRAM_DATA_OUT2 [2] <= DRAM16_data[2];
-                    DRAM_DATA_OUT3 [2] <= DRAM16_data[3];
-                    DRAM_DATA_OUT4 [2] <= DRAM16_data[4];
-                    DRAM_DATA_OUT5 [2] <= DRAM16_data[5];
-                    DRAM_DATA_OUT6 [2] <= DRAM16_data[6];
-                    DRAM_DATA_OUT7 [2] <= DRAM16_data[7];
-                    DRAM_DATA_OUT8 [2] <= DRAM16_data[8];
-                    DRAM_DATA_OUT9 [2] <= DRAM16_data[9];
-                    DRAM_DATA_OUT10[2] <= DRAM16_data[10];
-                    DRAM_DATA_OUT11[2] <= DRAM16_data[11];
-                    DRAM_DATA_OUT12[2] <= DRAM16_data[12];
-                    DRAM_DATA_OUT13[2] <= DRAM16_data[13];
-                    DRAM_DATA_OUT14[2] <= DRAM16_data[14];
-                    DRAM_DATA_OUT15[2] <= DRAM16_data[15];
-                    DRAM_DATA_OUT16[2] <= DRAM16_data[16];
+                    DRAM_DATA_OUT1_r [2] <= DRAM16_data[1];
+                    DRAM_DATA_OUT2_r [2] <= DRAM16_data[2];
+                    DRAM_DATA_OUT3_r [2] <= DRAM16_data[3];
+                    DRAM_DATA_OUT4_r [2] <= DRAM16_data[4];
+                    DRAM_DATA_OUT5_r [2] <= DRAM16_data[5];
+                    DRAM_DATA_OUT6_r [2] <= DRAM16_data[6];
+                    DRAM_DATA_OUT7_r [2] <= DRAM16_data[7];
+                    DRAM_DATA_OUT8_r [2] <= DRAM16_data[8];
+                    DRAM_DATA_OUT9_r [2] <= DRAM16_data[9];
+                    DRAM_DATA_OUT10_r [2] <= DRAM16_data[10];
+                    DRAM_DATA_OUT11_r [2] <= DRAM16_data[11];
+                    DRAM_DATA_OUT12_r [2] <= DRAM16_data[12];
+                    DRAM_DATA_OUT13_r [2] <= DRAM16_data[13];
+                    DRAM_DATA_OUT14_r [2] <= DRAM16_data[14];
+                    DRAM_DATA_OUT15_r [2] <= DRAM16_data[15];
+                    DRAM_DATA_OUT16_r [2] <= DRAM16_data[16];
                 end
                 13'd450: begin PC_DATA_CLK <= 1'b1; end
                 13'd470: begin 
                     PC_DATA_CLK <= 1'b0;
-                    DRAM_DATA_OUT1 [3] <= DRAM16_data[1];
-                    DRAM_DATA_OUT2 [3] <= DRAM16_data[2];
-                    DRAM_DATA_OUT3 [3] <= DRAM16_data[3];
-                    DRAM_DATA_OUT4 [3] <= DRAM16_data[4];
-                    DRAM_DATA_OUT5 [3] <= DRAM16_data[5];
-                    DRAM_DATA_OUT6 [3] <= DRAM16_data[6];
-                    DRAM_DATA_OUT7 [3] <= DRAM16_data[7];
-                    DRAM_DATA_OUT8 [3] <= DRAM16_data[8];
-                    DRAM_DATA_OUT9 [3] <= DRAM16_data[9];
-                    DRAM_DATA_OUT10[3] <= DRAM16_data[10];
-                    DRAM_DATA_OUT11[3] <= DRAM16_data[11];
-                    DRAM_DATA_OUT12[3] <= DRAM16_data[12];
-                    DRAM_DATA_OUT13[3] <= DRAM16_data[13];
-                    DRAM_DATA_OUT14[3] <= DRAM16_data[14];
-                    DRAM_DATA_OUT15[3] <= DRAM16_data[15];
-                    DRAM_DATA_OUT16[3] <= DRAM16_data[16];
+                    DRAM_DATA_OUT1_r [3] <= DRAM16_data[1];
+                    DRAM_DATA_OUT2_r [3] <= DRAM16_data[2];
+                    DRAM_DATA_OUT3_r [3] <= DRAM16_data[3];
+                    DRAM_DATA_OUT4_r [3] <= DRAM16_data[4];
+                    DRAM_DATA_OUT5_r [3] <= DRAM16_data[5];
+                    DRAM_DATA_OUT6_r [3] <= DRAM16_data[6];
+                    DRAM_DATA_OUT7_r [3] <= DRAM16_data[7];
+                    DRAM_DATA_OUT8_r [3] <= DRAM16_data[8];
+                    DRAM_DATA_OUT9_r [3] <= DRAM16_data[9];
+                    DRAM_DATA_OUT10_r [3] <= DRAM16_data[10];
+                    DRAM_DATA_OUT11_r [3] <= DRAM16_data[11];
+                    DRAM_DATA_OUT12_r [3] <= DRAM16_data[12];
+                    DRAM_DATA_OUT13_r [3] <= DRAM16_data[13];
+                    DRAM_DATA_OUT14_r [3] <= DRAM16_data[14];
+                    DRAM_DATA_OUT15_r [3] <= DRAM16_data[15];
+                    DRAM_DATA_OUT16_r [3] <= DRAM16_data[16];
                 end
                 13'd490: begin PC_DATA_CLK <= 1'b1; end
                 13'd510: begin 
                     PC_DATA_CLK <= 1'b0;
-                    DRAM_DATA_OUT1 [4] <= DRAM16_data[1];
-                    DRAM_DATA_OUT2 [4] <= DRAM16_data[2];
-                    DRAM_DATA_OUT3 [4] <= DRAM16_data[3];
-                    DRAM_DATA_OUT4 [4] <= DRAM16_data[4];
-                    DRAM_DATA_OUT5 [4] <= DRAM16_data[5];
-                    DRAM_DATA_OUT6 [4] <= DRAM16_data[6];
-                    DRAM_DATA_OUT7 [4] <= DRAM16_data[7];
-                    DRAM_DATA_OUT8 [4] <= DRAM16_data[8];
-                    DRAM_DATA_OUT9 [4] <= DRAM16_data[9];
-                    DRAM_DATA_OUT10[4] <= DRAM16_data[10];
-                    DRAM_DATA_OUT11[4] <= DRAM16_data[11];
-                    DRAM_DATA_OUT12[4] <= DRAM16_data[12];
-                    DRAM_DATA_OUT13[4] <= DRAM16_data[13];
-                    DRAM_DATA_OUT14[4] <= DRAM16_data[14];
-                    DRAM_DATA_OUT15[4] <= DRAM16_data[15];
-                    DRAM_DATA_OUT16[4] <= DRAM16_data[16];
+                    DRAM_DATA_OUT1_r [4] <= DRAM16_data[1];
+                    DRAM_DATA_OUT2_r [4] <= DRAM16_data[2];
+                    DRAM_DATA_OUT3_r [4] <= DRAM16_data[3];
+                    DRAM_DATA_OUT4_r [4] <= DRAM16_data[4];
+                    DRAM_DATA_OUT5_r [4] <= DRAM16_data[5];
+                    DRAM_DATA_OUT6_r [4] <= DRAM16_data[6];
+                    DRAM_DATA_OUT7_r [4] <= DRAM16_data[7];
+                    DRAM_DATA_OUT8_r [4] <= DRAM16_data[8];
+                    DRAM_DATA_OUT9_r [4] <= DRAM16_data[9];
+                    DRAM_DATA_OUT10_r [4] <= DRAM16_data[10];
+                    DRAM_DATA_OUT11_r [4] <= DRAM16_data[11];
+                    DRAM_DATA_OUT12_r [4] <= DRAM16_data[12];
+                    DRAM_DATA_OUT13_r [4] <= DRAM16_data[13];
+                    DRAM_DATA_OUT14_r [4] <= DRAM16_data[14];
+                    DRAM_DATA_OUT15_r [4] <= DRAM16_data[15];
+                    DRAM_DATA_OUT16_r [4] <= DRAM16_data[16];
                 end
                 13'd530: begin PC_DATA_CLK <= 1'b1; end
                 13'd550: begin 
                     PC_DATA_CLK <= 1'b0;
-                    DRAM_DATA_OUT1 [5] <= DRAM16_data[1];
-                    DRAM_DATA_OUT2 [5] <= DRAM16_data[2];
-                    DRAM_DATA_OUT3 [5] <= DRAM16_data[3];
-                    DRAM_DATA_OUT4 [5] <= DRAM16_data[4];
-                    DRAM_DATA_OUT5 [5] <= DRAM16_data[5];
-                    DRAM_DATA_OUT6 [5] <= DRAM16_data[6];
-                    DRAM_DATA_OUT7 [5] <= DRAM16_data[7];
-                    DRAM_DATA_OUT8 [5] <= DRAM16_data[8];
-                    DRAM_DATA_OUT9 [5] <= DRAM16_data[9];
-                    DRAM_DATA_OUT10[5] <= DRAM16_data[10];
-                    DRAM_DATA_OUT11[5] <= DRAM16_data[11];
-                    DRAM_DATA_OUT12[5] <= DRAM16_data[12];
-                    DRAM_DATA_OUT13[5] <= DRAM16_data[13];
-                    DRAM_DATA_OUT14[5] <= DRAM16_data[14];
-                    DRAM_DATA_OUT15[5] <= DRAM16_data[15];
-                    DRAM_DATA_OUT16[5] <= DRAM16_data[16];
+                    DRAM_DATA_OUT1_r [5] <= DRAM16_data[1];
+                    DRAM_DATA_OUT2_r [5] <= DRAM16_data[2];
+                    DRAM_DATA_OUT3_r [5] <= DRAM16_data[3];
+                    DRAM_DATA_OUT4_r [5] <= DRAM16_data[4];
+                    DRAM_DATA_OUT5_r [5] <= DRAM16_data[5];
+                    DRAM_DATA_OUT6_r [5] <= DRAM16_data[6];
+                    DRAM_DATA_OUT7_r [5] <= DRAM16_data[7];
+                    DRAM_DATA_OUT8_r [5] <= DRAM16_data[8];
+                    DRAM_DATA_OUT9_r [5] <= DRAM16_data[9];
+                    DRAM_DATA_OUT10_r [5] <= DRAM16_data[10];
+                    DRAM_DATA_OUT11_r [5] <= DRAM16_data[11];
+                    DRAM_DATA_OUT12_r [5] <= DRAM16_data[12];
+                    DRAM_DATA_OUT13_r [5] <= DRAM16_data[13];
+                    DRAM_DATA_OUT14_r [5] <= DRAM16_data[14];
+                    DRAM_DATA_OUT15_r [5] <= DRAM16_data[15];
+                    DRAM_DATA_OUT16_r [5] <= DRAM16_data[16];
                 end
                 13'd570: begin PC_DATA_CLK <= 1'b1; end
                 13'd590: begin 
                     PC_DATA_CLK <= 1'b0;
-                    DRAM_DATA_OUT1 [6] <= DRAM16_data[1];
-                    DRAM_DATA_OUT2 [6] <= DRAM16_data[2];
-                    DRAM_DATA_OUT3 [6] <= DRAM16_data[3];
-                    DRAM_DATA_OUT4 [6] <= DRAM16_data[4];
-                    DRAM_DATA_OUT5 [6] <= DRAM16_data[5];
-                    DRAM_DATA_OUT6 [6] <= DRAM16_data[6];
-                    DRAM_DATA_OUT7 [6] <= DRAM16_data[7];
-                    DRAM_DATA_OUT8 [6] <= DRAM16_data[8];
-                    DRAM_DATA_OUT9 [6] <= DRAM16_data[9];
-                    DRAM_DATA_OUT10[6] <= DRAM16_data[10];
-                    DRAM_DATA_OUT11[6] <= DRAM16_data[11];
-                    DRAM_DATA_OUT12[6] <= DRAM16_data[12];
-                    DRAM_DATA_OUT13[6] <= DRAM16_data[13];
-                    DRAM_DATA_OUT14[6] <= DRAM16_data[14];
-                    DRAM_DATA_OUT15[6] <= DRAM16_data[15];
-                    DRAM_DATA_OUT16[6] <= DRAM16_data[16];
+                    DRAM_DATA_OUT1_r [6] <= DRAM16_data[1];
+                    DRAM_DATA_OUT2_r [6] <= DRAM16_data[2];
+                    DRAM_DATA_OUT3_r [6] <= DRAM16_data[3];
+                    DRAM_DATA_OUT4_r [6] <= DRAM16_data[4];
+                    DRAM_DATA_OUT5_r [6] <= DRAM16_data[5];
+                    DRAM_DATA_OUT6_r [6] <= DRAM16_data[6];
+                    DRAM_DATA_OUT7_r [6] <= DRAM16_data[7];
+                    DRAM_DATA_OUT8_r [6] <= DRAM16_data[8];
+                    DRAM_DATA_OUT9_r [6] <= DRAM16_data[9];
+                    DRAM_DATA_OUT10_r [6] <= DRAM16_data[10];
+                    DRAM_DATA_OUT11_r [6] <= DRAM16_data[11];
+                    DRAM_DATA_OUT12_r [6] <= DRAM16_data[12];
+                    DRAM_DATA_OUT13_r [6] <= DRAM16_data[13];
+                    DRAM_DATA_OUT14_r [6] <= DRAM16_data[14];
+                    DRAM_DATA_OUT15_r [6] <= DRAM16_data[15];
+                    DRAM_DATA_OUT16_r [6] <= DRAM16_data[16];
                 end
                 13'd610: begin PC_DATA_CLK <= 1'b1; end
                 13'd630: begin 
                     PC_DATA_CLK <= 1'b0;
-                    DRAM_DATA_OUT1 [7] <= DRAM16_data[1];
-                    DRAM_DATA_OUT2 [7] <= DRAM16_data[2];
-                    DRAM_DATA_OUT3 [7] <= DRAM16_data[3];
-                    DRAM_DATA_OUT4 [7] <= DRAM16_data[4];
-                    DRAM_DATA_OUT5 [7] <= DRAM16_data[5];
-                    DRAM_DATA_OUT6 [7] <= DRAM16_data[6];
-                    DRAM_DATA_OUT7 [7] <= DRAM16_data[7];
-                    DRAM_DATA_OUT8 [7] <= DRAM16_data[8];
-                    DRAM_DATA_OUT9 [7] <= DRAM16_data[9];
-                    DRAM_DATA_OUT10[7] <= DRAM16_data[10];
-                    DRAM_DATA_OUT11[7] <= DRAM16_data[11];
-                    DRAM_DATA_OUT12[7] <= DRAM16_data[12];
-                    DRAM_DATA_OUT13[7] <= DRAM16_data[13];
-                    DRAM_DATA_OUT14[7] <= DRAM16_data[14];
-                    DRAM_DATA_OUT15[7] <= DRAM16_data[15];
-                    DRAM_DATA_OUT16[7] <= DRAM16_data[16];
+                    DRAM_DATA_OUT1_r [7] <= DRAM16_data[1];
+                    DRAM_DATA_OUT2_r [7] <= DRAM16_data[2];
+                    DRAM_DATA_OUT3_r [7] <= DRAM16_data[3];
+                    DRAM_DATA_OUT4_r [7] <= DRAM16_data[4];
+                    DRAM_DATA_OUT5_r [7] <= DRAM16_data[5];
+                    DRAM_DATA_OUT6_r [7] <= DRAM16_data[6];
+                    DRAM_DATA_OUT7_r [7] <= DRAM16_data[7];
+                    DRAM_DATA_OUT8_r [7] <= DRAM16_data[8];
+                    DRAM_DATA_OUT9_r [7] <= DRAM16_data[9];
+                    DRAM_DATA_OUT10_r [7] <= DRAM16_data[10];
+                    DRAM_DATA_OUT11_r [7] <= DRAM16_data[11];
+                    DRAM_DATA_OUT12_r [7] <= DRAM16_data[12];
+                    DRAM_DATA_OUT13_r [7] <= DRAM16_data[13];
+                    DRAM_DATA_OUT14_r [7] <= DRAM16_data[14];
+                    DRAM_DATA_OUT15_r [7] <= DRAM16_data[15];
+                    DRAM_DATA_OUT16_r [7] <= DRAM16_data[16];
                 end
                 // 读出完毕
-                13'd632: begin RD_DONE <= 1; end
-                13'd636: begin RD_DONE <= 0; end
+                13'd632: begin RD_DONE_r <= 1; end
+                13'd636: begin RD_DONE_r <= 0; end
                 default: begin end
                 endcase
             end
