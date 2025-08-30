@@ -52,11 +52,15 @@ module test_write_read(
     // generate clock
     wire clk_400m;
     wire clk_100m;
+    wire clk_locked;
     clk_wiz_400m u_clk_wiz_400m(
         .clk_400m(clk_400m),
         .clk_100m(clk_100m),
-        .clk(clk)
+        .clk(clk),
+        .locked(clk_locked)
     );
+
+    wire rst_n_locked = rst_n & clk_locked;
     // 信号定义
     
     reg [1:0] CIM_model;
@@ -130,8 +134,8 @@ module test_write_read(
     (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT15;
     (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT16;
 
-    always @(posedge clk_100m or negedge rst_n) begin
-        if (!rst_n) begin
+    always @(posedge clk_100m or negedge rst_n_locked) begin
+        if (!rst_n_locked) begin
             // 初始化所有寄存器
             CIM_model <= 2'b10;
             DATA_IN <= 16'hffff;
@@ -246,7 +250,7 @@ module test_write_read(
     DRAM_write_read_16core u_DRAM_write_read_16core (
         .clk_100m(clk_100m),
         .clk_400m(clk_400m),
-        .rst_n(rst_n),
+        .rst_n(rst_n_locked),
         .IO_EN(IO_EN),
         .IO_MODEL(IO_MODEL),
         .CIM_model(CIM_model),
