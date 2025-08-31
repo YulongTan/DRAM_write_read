@@ -606,15 +606,15 @@ module DRAM_write_read_16core(
             RD_DONE_nr1 <= 1'b0; RD_DONE <= 1'b0;
             WT_DONE_nr1 <= 1'b0; WT_DONE <= 1'b0;
         end else begin
-            DRAM_DATA_OUT1_nr1 <= DRAM_DATA_OUT1_r;  DRAM_DATA_OUT1 <= DRAM_DATA_OUT1_nr1;
-            DRAM_DATA_OUT2_nr1 <= DRAM_DATA_OUT2_r;  DRAM_DATA_OUT2 <= DRAM_DATA_OUT2_nr1;
-            DRAM_DATA_OUT3_nr1 <= DRAM_DATA_OUT3_r;  DRAM_DATA_OUT3 <= DRAM_DATA_OUT3_nr1;
-            DRAM_DATA_OUT4_nr1 <= DRAM_DATA_OUT4_r;  DRAM_DATA_OUT4 <= DRAM_DATA_OUT4_nr1;
-            DRAM_DATA_OUT5_nr1 <= DRAM_DATA_OUT5_r;  DRAM_DATA_OUT5 <= DRAM_DATA_OUT5_nr1;
-            DRAM_DATA_OUT6_nr1 <= DRAM_DATA_OUT6_r;  DRAM_DATA_OUT6 <= DRAM_DATA_OUT6_nr1;
-            DRAM_DATA_OUT7_nr1 <= DRAM_DATA_OUT7_r;  DRAM_DATA_OUT7 <= DRAM_DATA_OUT7_nr1;
-            DRAM_DATA_OUT8_nr1 <= DRAM_DATA_OUT8_r;  DRAM_DATA_OUT8 <= DRAM_DATA_OUT8_nr1;
-            DRAM_DATA_OUT9_nr1 <= DRAM_DATA_OUT9_r;  DRAM_DATA_OUT9 <= DRAM_DATA_OUT9_nr1;
+            DRAM_DATA_OUT1_nr1 <= DRAM_DATA_OUT1_r;   DRAM_DATA_OUT1 <= DRAM_DATA_OUT1_nr1;
+            DRAM_DATA_OUT2_nr1 <= DRAM_DATA_OUT2_r;   DRAM_DATA_OUT2 <= DRAM_DATA_OUT2_nr1;
+            DRAM_DATA_OUT3_nr1 <= DRAM_DATA_OUT3_r;   DRAM_DATA_OUT3 <= DRAM_DATA_OUT3_nr1;
+            DRAM_DATA_OUT4_nr1 <= DRAM_DATA_OUT4_r;   DRAM_DATA_OUT4 <= DRAM_DATA_OUT4_nr1;
+            DRAM_DATA_OUT5_nr1 <= DRAM_DATA_OUT5_r;   DRAM_DATA_OUT5 <= DRAM_DATA_OUT5_nr1;
+            DRAM_DATA_OUT6_nr1 <= DRAM_DATA_OUT6_r;   DRAM_DATA_OUT6 <= DRAM_DATA_OUT6_nr1;
+            DRAM_DATA_OUT7_nr1 <= DRAM_DATA_OUT7_r;   DRAM_DATA_OUT7 <= DRAM_DATA_OUT7_nr1;
+            DRAM_DATA_OUT8_nr1 <= DRAM_DATA_OUT8_r;   DRAM_DATA_OUT8 <= DRAM_DATA_OUT8_nr1;
+            DRAM_DATA_OUT9_nr1 <= DRAM_DATA_OUT9_r;   DRAM_DATA_OUT9 <= DRAM_DATA_OUT9_nr1;
             DRAM_DATA_OUT10_nr1 <= DRAM_DATA_OUT10_r; DRAM_DATA_OUT10 <= DRAM_DATA_OUT10_nr1;
             DRAM_DATA_OUT11_nr1 <= DRAM_DATA_OUT11_r; DRAM_DATA_OUT11 <= DRAM_DATA_OUT11_nr1;
             DRAM_DATA_OUT12_nr1 <= DRAM_DATA_OUT12_r; DRAM_DATA_OUT12 <= DRAM_DATA_OUT12_nr1;
@@ -2179,7 +2179,7 @@ module DRAM_write_read_16core(
     end
 //
     // read data from DRAM 
-    reg RD_EN_pre;
+    (*dont_touch="yes"*)reg RD_EN_pre;
     // reg CLK_out_RD;
     // reg read_data; // DRAM寄存数据
     reg PC_DATA_CLK;
@@ -2244,7 +2244,7 @@ module DRAM_write_read_16core(
                 13'd20: begin PC_R_AD[1] <= 1'b1; end// 取消复位
                 13'd40: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
                 13'd60: begin 
-                    PC_R_AD[1] <= 1'b0; 
+                    PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  DEMUX_ADD1 [0]; 
                     R_AD[2] <=  DEMUX_ADD2 [0]; 
                     R_AD[3] <=  DEMUX_ADD3 [0]; 
@@ -2264,7 +2264,7 @@ module DRAM_write_read_16core(
                 end 
                 13'd80: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
                 13'd100: begin 
-                    PC_R_AD[1] <= 1'b0; 
+                    PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [5]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [5]; 
                     R_AD[3] <=  RWL_DEC_ADD3 [5]; 
@@ -2284,7 +2284,7 @@ module DRAM_write_read_16core(
                 end 
                 13'd120: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
                 13'd140: begin 
-                    PC_R_AD[1] <= 1'b0; 
+                    PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [4]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [4]; 
                     R_AD[3] <=  RWL_DEC_ADD3 [4]; 
@@ -2304,7 +2304,7 @@ module DRAM_write_read_16core(
                 end 
                 13'd160: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
                 13'd180: begin 
-                    PC_R_AD[1] <= 1'b0; 
+                    PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [3]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [3]; 
                     R_AD[3] <=  RWL_DEC_ADD3 [3]; 
@@ -2324,7 +2324,7 @@ module DRAM_write_read_16core(
                 end 
                 13'd200: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
                 13'd220: begin 
-                    PC_R_AD[1] <= 1'b0; 
+                    PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [2]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [2]; 
                     R_AD[3] <=  RWL_DEC_ADD3 [2]; 
@@ -2344,7 +2344,7 @@ module DRAM_write_read_16core(
                 end 
                 13'd240: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
                 13'd260: begin 
-                    PC_R_AD[1] <= 1'b0; 
+                    PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [1]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [1]; 
                     R_AD[3] <=  RWL_DEC_ADD3 [1]; 
@@ -2364,7 +2364,7 @@ module DRAM_write_read_16core(
                 end 
                 13'd280: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
                 13'd300: begin 
-                    PC_R_AD[1] <= 1'b0; 
+                    PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [0]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [0]; 
                     R_AD[3] <=  RWL_DEC_ADD3 [0]; 
@@ -2386,16 +2386,14 @@ module DRAM_write_read_16core(
                 13'd340: begin PC_R_AD[0] <= 1'b0; end
                 13'd341: begin end
                 13'd342: begin end
-                13'd341: begin REF_WWL<=0; RD_EN_pre<=1; end
-                13'd342: begin RD_EN_pre<=0; end
-                13'd343: begin REF_WWL<=1; end
+                13'd343: begin REF_WWL<=0; RD_EN_pre<=1; end
+                13'd344: begin RD_EN_pre<=0; end
+                13'd345: begin REF_WWL<=1; end
                 // 位串行寄存输出数据
                 // PC_DATA_CLK <= 1'b0;
                 // PC_DATA_CLK_INH <= 1'b0;
                 // PC_DATA_SHLD <= 1'b0;
                 // SH/LD保持一段时间来寄存输出 保持10ns以上
-                13'd344: begin end
-                13'd345: begin end
                 13'd346: begin end
                 13'd347: begin end
                 13'd348: begin end
