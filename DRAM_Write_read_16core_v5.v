@@ -2158,7 +2158,7 @@ module DRAM_write_read_16core(
                 13'd3218: begin end
                 13'd3220: begin end
                 13'd3222: begin end
-                13'd3224: begin WRI_EN<=1; WR_flag<=0; end
+                13'd3224: begin WRI_EN<=0; WR_flag<=0; end
                 13'd3226: begin  WT_DONE_r <= 1; end
                 13'd3230: begin  WT_DONE_r <= 0; end
                 default: begin end
@@ -2568,9 +2568,16 @@ module DRAM_write_read_16core(
         end
     end
     
-    assign LIM_IN=DATA_IN;     // LIM_IN, LIM输入 16块芯片的算输入数据
-    assign LIM_SEL=CIM_model;  // 存算模式选择
+    assign LIM_IN=DATA_IN_r;     // LIM_IN, LIM输入 16块芯片的算输入数据
+    assign LIM_SEL=CIM_model_r;  // 存算模式选择
     // 插入逻辑门延时  具体延时多少是试出来的
+    //read delay generate
+    (*dont_touch="yes"*)wire RD_EN1;
+    (*dont_touch="yes"*)wire RD_EN2;
+    (*dont_touch="yes"*)wire RD_EN3;
+    (*dont_touch="yes"*)wire RD_EN4;
+    (*dont_touch="yes"*)wire RD_EN5;
+    (*dont_touch="yes"*)wire RD_EN6;
     (*dont_touch="yes"*)assign RD_EN1=RD_EN_pre&(!WR_flag);
     (*dont_touch="yes"*)assign RD_EN2=RD_EN1&(!WR_flag);
     (*dont_touch="yes"*)assign RD_EN3=RD_EN2&(!WR_flag);
