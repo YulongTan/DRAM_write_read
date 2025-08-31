@@ -570,7 +570,7 @@ module DRAM_write_read_16core(
             end
             else begin
                 // 写入数据
-                if ( (counter_work >= 13'd1623) && (IO_MODEL_r == 2'b01) ) begin
+                if ( (counter_work >= 13'd1645) && (IO_MODEL_r == 2'b01) ) begin
                     IO_EN_FLAG <= 1'b0;
                 end
                 // 读出数据
@@ -1025,13 +1025,13 @@ module DRAM_write_read_16core(
                 13'd392: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd393: begin 
+                13'd394: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd394: begin
+                13'd396: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd395: begin
+                13'd398: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 3 轮（索引 2,10,18,26,34,42,50,58） =================
@@ -1206,10 +1206,10 @@ module DRAM_write_read_16core(
                 13'd594: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd595: begin
+                13'd596: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd596: begin
+                13'd598: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 4 轮（索引 3,11,19,27,35,43,51,59） =================
@@ -1384,10 +1384,10 @@ module DRAM_write_read_16core(
                 13'd795: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd796: begin
+                13'd797: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd797: begin
+                13'd799: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 5 轮（索引 4,12,20,28,36,44,52,60） =================
@@ -1562,10 +1562,10 @@ module DRAM_write_read_16core(
                 13'd996: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd997: begin
+                13'd998: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd998: begin
+                13'd1000: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 6 轮（索引 5,13,21,29,37,45,53,61） =================
@@ -1743,7 +1743,7 @@ module DRAM_write_read_16core(
                 13'd1198: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd1199: begin
+                13'd1200: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 7 轮（索引 6,14,22,30,38,46,54,62） =================
@@ -1918,10 +1918,10 @@ module DRAM_write_read_16core(
                 13'd1398: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd1399: begin
+                13'd1400: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd1400: begin
+                13'd1402: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 8 轮（索引 7,15,23,31,39,47,55,63） =================
@@ -2096,71 +2096,71 @@ module DRAM_write_read_16core(
                 13'd1599: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd1600: begin
+                13'd1601: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd1601: begin
+                13'd1603: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止数据准备
                             // 输入地址的串转并
                             ADD_IN <= WWL_ADD_r[5]; ADD_VALID_IN <= 1'b0;// 有效是低电平
                         end
                 // 完成输入数据的串转并
                 // 准备输入地址的串转并
-                13'd1602: begin
-                            clk_out_WT <= 1'b1;
-                        end
-                13'd1603: begin
-                            clk_out_WT <= 1'b0;
-                            ADD_IN <= WWL_ADD_r[4];
-                        end
-                13'd1604: begin
-                            clk_out_WT <= 1'b1;
-                        end
                 13'd1605: begin
-                            clk_out_WT <= 1'b0;
-                            ADD_IN <= WWL_ADD_r[3];
-                        end
-                13'd1606: begin
                             clk_out_WT <= 1'b1;
                         end
                 13'd1607: begin
                             clk_out_WT <= 1'b0;
-                            ADD_IN <= WWL_ADD_r[2];
-                        end
-                13'd1608: begin
-                            clk_out_WT <= 1'b1;
+                            ADD_IN <= WWL_ADD_r[4];
                         end
                 13'd1609: begin
-                            clk_out_WT <= 1'b0;
-                            ADD_IN <= WWL_ADD_r[1];
-                        end
-                13'd1610: begin
                             clk_out_WT <= 1'b1;
                         end
                 13'd1611: begin
                             clk_out_WT <= 1'b0;
-                            ADD_IN <= WWL_ADD_r[0];
-                        end
-                13'd1612: begin
-                            clk_out_WT <= 1'b1;
+                            ADD_IN <= WWL_ADD_r[3];
                         end
                 13'd1613: begin
-                            clk_out_WT <= 1'b0;
-                            ADD_VALID_IN <= 1'b1;// 结束地址移位
-                        end
-                13'd1614: begin
                             clk_out_WT <= 1'b1;
                         end
                 13'd1615: begin
                             clk_out_WT <= 1'b0;
+                            ADD_IN <= WWL_ADD_r[2];
                         end
-                13'd1616: begin WRI_EN<=1;end
-                13'd1617: begin end
-                13'd1618: begin end
-                13'd1619: begin end
-                13'd1620: begin WRI_EN<=0; WR_flag<=0; end
-                13'd1621: begin  WT_DONE_r <= 1; end
-                13'd1623: begin  WT_DONE_r <= 0; end
+                13'd1617: begin
+                            clk_out_WT <= 1'b1;
+                        end
+                13'd1619: begin
+                            clk_out_WT <= 1'b0;
+                            ADD_IN <= WWL_ADD_r[1];
+                        end
+                13'd1621: begin
+                            clk_out_WT <= 1'b1;
+                        end
+                13'd1623: begin
+                            clk_out_WT <= 1'b0;
+                            ADD_IN <= WWL_ADD_r[0];
+                        end
+                13'd1625: begin
+                            clk_out_WT <= 1'b1;
+                        end
+                13'd1627: begin
+                            clk_out_WT <= 1'b0;
+                            ADD_VALID_IN <= 1'b1;// 结束地址移位
+                        end
+                13'd1629: begin
+                            clk_out_WT <= 1'b1;
+                        end
+                13'd1631: begin
+                            clk_out_WT <= 1'b0;
+                        end
+                13'd1633: begin WRI_EN<=1;end
+                13'd1635: begin end
+                13'd1637: begin end
+                13'd1639: begin end
+                13'd1641: begin WRI_EN<=0; WR_flag<=0; end
+                13'd1643: begin  WT_DONE_r <= 1; end
+                13'd1645: begin  WT_DONE_r <= 0; end
                 default: begin end
                 endcase
             end
