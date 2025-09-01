@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
+// Company:  
 // Engineer: 
 // 
 // Create Date: 2025/08/29 16:11:23
@@ -52,15 +52,16 @@ module test_write_read(
     // generate clock
     wire clk_400m;
     wire clk_100m;
+    wire clk_vsa;
     wire clk_locked;
+    wire rst_n_locked = rst_n & clk_locked;
     clk_wiz_400m u_clk_wiz_400m(
         .clk_400m(clk_400m),
         .clk_100m(clk_100m),
-        .clk(clk),
-        .locked(clk_locked)
+        .clk_vsa(clk_vsa),
+        .locked(clk_locked),
+        .clk(clk)
     );
-
-    wire rst_n_locked = rst_n & clk_locked;
     // 信号定义
     
     reg [1:0] CIM_model;
@@ -117,25 +118,25 @@ module test_write_read(
     reg [1:0] DEMUX_ADD16;
     reg DEMUX_ADD_3;
     // 输出
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT1;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT2;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT3;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT4;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT5;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT6;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT7;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT8;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT9;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT10;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT11;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT12;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT13;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT14;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT15;
-    (*dont_touch="yes"*)wire [7:0] DRAM_DATA_OUT16;
+    wire [7:0] DRAM_DATA_OUT1;
+    wire [7:0] DRAM_DATA_OUT2;
+    wire [7:0] DRAM_DATA_OUT3;
+    wire [7:0] DRAM_DATA_OUT4;
+    wire [7:0] DRAM_DATA_OUT5;
+    wire [7:0] DRAM_DATA_OUT6;
+    wire [7:0] DRAM_DATA_OUT7;
+    wire [7:0] DRAM_DATA_OUT8;
+    wire [7:0] DRAM_DATA_OUT9;
+    wire [7:0] DRAM_DATA_OUT10;
+    wire [7:0] DRAM_DATA_OUT11;
+    wire [7:0] DRAM_DATA_OUT12;
+    wire [7:0] DRAM_DATA_OUT13;
+    wire [7:0] DRAM_DATA_OUT14;
+    wire [7:0] DRAM_DATA_OUT15;
+    wire [7:0] DRAM_DATA_OUT16;
 
-    always @(posedge clk_100m or negedge rst_n_locked) begin
-        if (!rst_n_locked) begin
+    always @(posedge clk_100m or negedge rst_n) begin
+        if (!rst_n) begin
             // 初始化所有寄存器
             CIM_model <= 2'b10;
             DATA_IN <= 16'hffff;
@@ -250,6 +251,7 @@ module test_write_read(
     DRAM_write_read_16core u_DRAM_write_read_16core (
         .clk_100m(clk_100m),
         .clk_400m(clk_400m),
+        .clk_vsa(clk_vsa),
         .rst_n(rst_n_locked),
         .IO_EN(IO_EN),
         .IO_MODEL(IO_MODEL),
