@@ -2568,26 +2568,29 @@ module DRAM_write_read_16core(
     
     assign LIM_IN=DATA_IN_r;     // LIM_IN, LIM输入 16块芯片的算输入数据
     assign LIM_SEL=CIM_model_r;  // 存算模式选择
-    // 插入逻辑门延时  具体延时多少是试出来的
-    //read delay generate
-    (*dont_touch="yes"*)wire RD_EN1;
-    (*dont_touch="yes"*)wire RD_EN2;
-    (*dont_touch="yes"*)wire RD_EN3;
-    (*dont_touch="yes"*)wire RD_EN4;
-    (*dont_touch="yes"*)wire RD_EN5;
-    (*dont_touch="yes"*)wire RD_EN6;
-    (*dont_touch="yes"*)assign RD_EN1=RD_EN_pre&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN=RD_EN1&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN2=RD_EN1&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN3=RD_EN2&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN4=RD_EN3&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN5=RD_EN4&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN6=RD_EN5&(!WR_flag);
-    //(*dont_touch="yes"*)assign VSAEN=RD_EN6&(!WR_flag);
-    (*dont_touch="yes"*)wire RD_EN7;
-    (*dont_touch="yes"*)wire RD_EN8;
-    (*dont_touch="yes"*)assign RD_EN7=RD_EN6&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN8=RD_EN7&(!WR_flag);
-    (*dont_touch="yes"*)assign VSAEN=RD_EN8&(!WR_flag);
+
+    // RD_EN由状态机产生，与写标志取反后直接输出
+    assign RD_EN = RD_EN_pre & (~WR_flag);
+
+    // 使用Clock Wizard产生的相移时钟来获取延时后的VSAEN
+    // Clock Wizard配置示例：输入时钟400 MHz (clk_400m)，
+    // 输出与输入同频率，启用"Output Phase"并根据需求设定相位偏移
+    wire clk_vsa; // 相移后的时钟
+    clk_wiz_vsaen u_clk_wiz_vsaen (
+        .clk_in1(clk_400m),
+        .clk_out1(clk_vsa),
+        .reset(1'b0),
+        .locked()
+    );
+
+    // 在相移后的时钟域中对RD_EN进行寄存，得到VSAEN
+    reg VSAEN_r;
+    always @(posedge clk_vsa or negedge rst_n) begin
+        if(!rst_n)
+            VSAEN_r <= 1'b0;
+        else
+            VSAEN_r <= RD_EN;
+    end
+    assign VSAEN = VSAEN_r; // VSAEN直接输出到FPGA外部，不返回主时钟域
 
 endmodule
