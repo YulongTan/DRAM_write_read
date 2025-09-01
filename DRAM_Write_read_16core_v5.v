@@ -570,11 +570,11 @@ module DRAM_write_read_16core(
             end
             else begin
                 // 写入数据
-                if ( (counter_work >= 13'd1645) && (IO_MODEL_r == 2'b01) ) begin
+                if ( (counter_work >= 13'd3230) && (IO_MODEL_r == 2'b01) ) begin
                     IO_EN_FLAG <= 1'b0;
                 end
                 // 读出数据
-                else if ( (counter_work >= 13'd323) && (IO_MODEL_r == 2'b10) ) begin
+                else if ( (counter_work >= 13'd636) && (IO_MODEL_r == 2'b10) ) begin
                     IO_EN_FLAG <= 1'b0;
                 end
                 else begin
@@ -700,9 +700,9 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[0];
                             D_IN[16]  <= WBL_DATA_IN16_r[0];
                         end
-                13'd10:  begin PC_D_IN[1] <= 1'b1; end // 取消复位
-                13'd20:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
-                13'd30:  begin
+                13'd20:  begin PC_D_IN[1] <= 1'b1; end // 取消复位
+                13'd40:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
+                13'd60:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[8];
                             D_IN[2]  <= WBL_DATA_IN2_r[8];
@@ -721,8 +721,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[8];
                             D_IN[16]  <= WBL_DATA_IN16_r[8];
                         end
-                13'd40:  begin PC_D_IN[0] <= 1'b1; end
-                13'd50:  begin
+                13'd80:  begin PC_D_IN[0] <= 1'b1; end
+                13'd100:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[16];
                             D_IN[2]  <= WBL_DATA_IN2_r[16];
@@ -741,8 +741,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[16];
                             D_IN[16]  <= WBL_DATA_IN16_r[16];
                         end
-                13'd60:  begin PC_D_IN[0] <= 1'b1; end
-                13'd70:  begin
+                13'd120:  begin PC_D_IN[0] <= 1'b1; end
+                13'd140:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[24];
                             D_IN[2]  <= WBL_DATA_IN2_r[24];
@@ -761,8 +761,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[24];
                             D_IN[16]  <= WBL_DATA_IN16_r[24];
                         end
-                13'd80:  begin PC_D_IN[0] <= 1'b1; end
-                13'd90:  begin
+                13'd160:  begin PC_D_IN[0] <= 1'b1; end
+                13'd180:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[32];
                             D_IN[2]  <= WBL_DATA_IN2_r[32];
@@ -781,8 +781,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[32];
                             D_IN[16]  <= WBL_DATA_IN16_r[32];
                         end
-                13'd100:  begin PC_D_IN[0] <= 1'b1; end
-                13'd110:  begin
+                13'd200:  begin PC_D_IN[0] <= 1'b1; end
+                13'd220:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[40];
                             D_IN[2]  <= WBL_DATA_IN2_r[40];
@@ -801,8 +801,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[40];
                             D_IN[16]  <= WBL_DATA_IN16_r[40];
                         end
-                13'd120:  begin PC_D_IN[0] <= 1'b1; end
-                13'd130:  begin
+                13'd240:  begin PC_D_IN[0] <= 1'b1; end
+                13'd260:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[48];
                             D_IN[2]  <= WBL_DATA_IN2_r[48];
@@ -821,8 +821,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[48];
                             D_IN[16]  <= WBL_DATA_IN16_r[48];
                         end
-                13'd140:  begin PC_D_IN[0] <= 1'b1; end
-                13'd150:  begin
+                13'd280:  begin PC_D_IN[0] <= 1'b1; end
+                13'd300:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[56];
                             D_IN[2]  <= WBL_DATA_IN2_r[56];
@@ -841,27 +841,27 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[56];
                             D_IN[16]  <= WBL_DATA_IN16_r[56];
                         end
-                13'd160:  begin PC_D_IN[0] <= 1'b1; end
-                13'd170: begin PC_D_IN[0] <= 1'b0; end
-                13'd180: begin  end
-                13'd190: begin PC_D_IN[0] <= 1'b0; end
+                13'd320:  begin PC_D_IN[0] <= 1'b1; end
+                13'd340: begin PC_D_IN[0] <= 1'b0; end
+                13'd360: begin  end
+                13'd380: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd192: begin 
+                13'd382: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd194: begin
-                            clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能
+                13'd384: begin
+                            clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd196: begin
+                13'd386: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 2 轮（索引 1,9,17,25,33,41,49,57） =================
-                13'd201:   begin
+                13'd400:   begin
                             PC_D_IN[0] <= 1'b0; clk_out_WT <= 1'b0; DATA_VALID_IN<=1;
                         end
-                13'd202:   begin end
-                13'd203:   begin 
+                13'd401:   begin end
+                13'd402:   begin 
                             D_IN[1]  <= WBL_DATA_IN1_r[1];
                             D_IN[2]  <= WBL_DATA_IN2_r[1];
                             D_IN[3]  <= WBL_DATA_IN3_r[1];
@@ -879,8 +879,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[1];
                             D_IN[16]  <= WBL_DATA_IN16_r[1];
                         end
-                13'd222:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
-                13'd232:  begin 
+                13'd440:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
+                13'd460:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[9];
                             D_IN[2]  <= WBL_DATA_IN2_r[9];
@@ -899,8 +899,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[9];
                             D_IN[16]  <= WBL_DATA_IN16_r[9];
                         end
-                13'd242:  begin PC_D_IN[0] <= 1'b1; end
-                13'd252:  begin 
+                13'd480:  begin PC_D_IN[0] <= 1'b1; end
+                13'd500:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[17];
                             D_IN[2]  <= WBL_DATA_IN2_r[17];
@@ -919,8 +919,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[17];
                             D_IN[16]  <= WBL_DATA_IN16_r[17];
                         end
-                13'd262:  begin PC_D_IN[0] <= 1'b1; end
-                13'd272:  begin 
+                13'd520:  begin PC_D_IN[0] <= 1'b1; end
+                13'd540:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[25];
                             D_IN[2]  <= WBL_DATA_IN2_r[25];
@@ -939,8 +939,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[25];
                             D_IN[16]  <= WBL_DATA_IN16_r[25];
                         end
-                13'd282:  begin PC_D_IN[0] <= 1'b1; end
-                13'd292:  begin 
+                13'd560:  begin PC_D_IN[0] <= 1'b1; end
+                13'd580:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[33];
                             D_IN[2]  <= WBL_DATA_IN2_r[33];
@@ -959,8 +959,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[33];
                             D_IN[16]  <= WBL_DATA_IN16_r[33];
                         end
-                13'd302:  begin PC_D_IN[0] <= 1'b1; end
-                13'd312:  begin 
+                13'd600:  begin PC_D_IN[0] <= 1'b1; end
+                13'd620:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[41];
                             D_IN[2]  <= WBL_DATA_IN2_r[41];
@@ -979,8 +979,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[41];
                             D_IN[16]  <= WBL_DATA_IN16_r[41];
                         end
-                13'd322:  begin PC_D_IN[0] <= 1'b1; end
-                13'd332:  begin 
+                13'd640:  begin PC_D_IN[0] <= 1'b1; end
+                13'd660:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[49];
                             D_IN[2]  <= WBL_DATA_IN2_r[49];
@@ -999,8 +999,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[49];
                             D_IN[16]  <= WBL_DATA_IN16_r[49];
                         end
-                13'd342:  begin PC_D_IN[0] <= 1'b1; end
-                13'd352:  begin 
+                13'd680:  begin PC_D_IN[0] <= 1'b1; end
+                13'd700:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[57];
                             D_IN[2]  <= WBL_DATA_IN2_r[57];
@@ -1019,27 +1019,27 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[57];
                             D_IN[16]  <= WBL_DATA_IN16_r[57];
                         end
-                13'd362:  begin PC_D_IN[0] <= 1'b1; end
-                13'd372: begin PC_D_IN[0] <= 1'b0; end
-                13'd382: begin end
-                13'd392: begin PC_D_IN[0] <= 1'b0; end
+                13'd720:  begin PC_D_IN[0] <= 1'b1; end
+                13'd740: begin PC_D_IN[0] <= 1'b0; end
+                13'd760: begin end
+                13'd780: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd394: begin 
+                13'd782: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd396: begin
+                13'd784: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd398: begin
+                13'd786: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 3 轮（索引 2,10,18,26,34,42,50,58） =================
-                13'd402:   begin
+                13'd800:   begin
                             PC_D_IN[0] <= 1'b0; clk_out_WT <= 1'b0; DATA_VALID_IN<=1;
                         end
-                13'd403:   begin end
-                13'd404:   begin 
+                13'd801:   begin end
+                13'd802:   begin 
                             D_IN[1]  <= WBL_DATA_IN1_r[2];
                             D_IN[2]  <= WBL_DATA_IN2_r[2];
                             D_IN[3]  <= WBL_DATA_IN3_r[2];
@@ -1057,8 +1057,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[2];
                             D_IN[16]  <= WBL_DATA_IN16_r[2];
                         end
-                13'd423:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
-                13'd433:  begin 
+                13'd840:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
+                13'd860:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[10];
                             D_IN[2]  <= WBL_DATA_IN2_r[10];
@@ -1077,8 +1077,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[10];
                             D_IN[16]  <= WBL_DATA_IN16_r[10];
                         end
-                13'd443:  begin PC_D_IN[0] <= 1'b1; end
-                13'd453:  begin 
+                13'd880:  begin PC_D_IN[0] <= 1'b1; end
+                13'd900:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[18];
                             D_IN[2]  <= WBL_DATA_IN2_r[18];
@@ -1097,8 +1097,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[18];
                             D_IN[16]  <= WBL_DATA_IN16_r[18];
                         end
-                13'd463:  begin PC_D_IN[0] <= 1'b1; end
-                13'd473:  begin 
+                13'd920:  begin PC_D_IN[0] <= 1'b1; end
+                13'd940:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[26];
                             D_IN[2]  <= WBL_DATA_IN2_r[26];
@@ -1117,8 +1117,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[26];
                             D_IN[16]  <= WBL_DATA_IN16_r[26];
                         end
-                13'd483:  begin PC_D_IN[0] <= 1'b1; end
-                13'd493:  begin 
+                13'd960:  begin PC_D_IN[0] <= 1'b1; end
+                13'd980:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[34];
                             D_IN[2]  <= WBL_DATA_IN2_r[34];
@@ -1137,8 +1137,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[34];
                             D_IN[16]  <= WBL_DATA_IN16_r[34];
                         end
-                13'd503:  begin PC_D_IN[0] <= 1'b1; end
-                13'd513:  begin 
+                13'd1000:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1020:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[42];
                             D_IN[2]  <= WBL_DATA_IN2_r[42];
@@ -1157,8 +1157,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[42];
                             D_IN[16]  <= WBL_DATA_IN16_r[42];
                         end
-                13'd523:  begin PC_D_IN[0] <= 1'b1; end
-                13'd533:  begin 
+                13'd1040:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1060:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[50];
                             D_IN[2]  <= WBL_DATA_IN2_r[50];
@@ -1177,8 +1177,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[50];
                             D_IN[16]  <= WBL_DATA_IN16_r[50];
                         end
-                13'd543:  begin PC_D_IN[0] <= 1'b1; end
-                13'd553:  begin 
+                13'd1080:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1100:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[58];
                             D_IN[2]  <= WBL_DATA_IN2_r[58];
@@ -1197,27 +1197,27 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[58];
                             D_IN[16]  <= WBL_DATA_IN16_r[58];
                         end
-                13'd563:  begin PC_D_IN[0] <= 1'b1; end
-                13'd573: begin PC_D_IN[0] <= 1'b0; end
-                13'd583: begin end
-                13'd593: begin PC_D_IN[0] <= 1'b0; end
+                13'd1120:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1140: begin PC_D_IN[0] <= 1'b0; end
+                13'd1160: begin end
+                13'd1180: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd594: begin 
+                13'd1182: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd596: begin
+                13'd1184: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd598: begin
+                13'd1186: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 4 轮（索引 3,11,19,27,35,43,51,59） =================
-                13'd603:   begin
+                13'd1200:   begin
                             PC_D_IN[0] <= 1'b0; clk_out_WT <= 1'b0; DATA_VALID_IN<=1;
                         end
-                13'd604:   begin end
-                13'd605:   begin 
+                13'd1201:   begin end
+                13'd1202:   begin 
                             D_IN[1]  <= WBL_DATA_IN1_r[3];
                             D_IN[2]  <= WBL_DATA_IN2_r[3];
                             D_IN[3]  <= WBL_DATA_IN3_r[3];
@@ -1235,8 +1235,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[3];
                             D_IN[16]  <= WBL_DATA_IN16_r[3];
                         end
-                13'd624:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
-                13'd634:  begin 
+                13'd1240:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
+                13'd1260:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[11];
                             D_IN[2]  <= WBL_DATA_IN2_r[11];
@@ -1255,8 +1255,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[11];
                             D_IN[16]  <= WBL_DATA_IN16_r[11];
                         end
-                13'd644:  begin PC_D_IN[0] <= 1'b1; end
-                13'd654:  begin 
+                13'd1280:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1300:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[19];
                             D_IN[2]  <= WBL_DATA_IN2_r[19];
@@ -1275,8 +1275,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[19];
                             D_IN[16]  <= WBL_DATA_IN16_r[19];
                         end
-                13'd664:  begin PC_D_IN[0] <= 1'b1; end
-                13'd674:  begin 
+                13'd1320:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1340:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[27];
                             D_IN[2]  <= WBL_DATA_IN2_r[27];
@@ -1295,8 +1295,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[27];
                             D_IN[16]  <= WBL_DATA_IN16_r[27];
                         end
-                13'd684:  begin PC_D_IN[0] <= 1'b1; end
-                13'd694:  begin 
+                13'd1360:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1380:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[35];
                             D_IN[2]  <= WBL_DATA_IN2_r[35];
@@ -1315,8 +1315,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[35];
                             D_IN[16]  <= WBL_DATA_IN16_r[35];
                         end
-                13'd704:  begin PC_D_IN[0] <= 1'b1; end
-                13'd714:  begin 
+                13'd1400:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1420:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[43];
                             D_IN[2]  <= WBL_DATA_IN2_r[43];
@@ -1335,8 +1335,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[43];
                             D_IN[16]  <= WBL_DATA_IN16_r[43];
                         end
-                13'd724:  begin PC_D_IN[0] <= 1'b1; end
-                13'd734:  begin 
+                13'd1440:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1460:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[51];
                             D_IN[2]  <= WBL_DATA_IN2_r[51];
@@ -1355,8 +1355,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[51];
                             D_IN[16]  <= WBL_DATA_IN16_r[51];
                         end
-                13'd744:  begin PC_D_IN[0] <= 1'b1; end
-                13'd754:  begin 
+                13'd1480:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1500:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[59];
                             D_IN[2]  <= WBL_DATA_IN2_r[59];
@@ -1375,27 +1375,27 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[59];
                             D_IN[16]  <= WBL_DATA_IN16_r[59];
                         end
-                13'd764:  begin PC_D_IN[0] <= 1'b1; end
-                13'd774: begin PC_D_IN[0] <= 1'b0; end
-                13'd784: begin end
-                13'd794: begin PC_D_IN[0] <= 1'b0; end
+                13'd1520:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1540: begin PC_D_IN[0] <= 1'b0; end
+                13'd1560: begin end
+                13'd1580: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd795: begin 
+                13'd1582: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd797: begin
+                13'd1584: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd799: begin
+                13'd1586: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 5 轮（索引 4,12,20,28,36,44,52,60） =================
-                13'd804:   begin
+                13'd1600:   begin
                             PC_D_IN[0] <= 1'b0; clk_out_WT <= 1'b0; DATA_VALID_IN<=1;
                         end
-                13'd805:   begin end
-                13'd806:   begin 
+                13'd1601:   begin end
+                13'd1602:   begin 
                             D_IN[1]  <= WBL_DATA_IN1_r[4];
                             D_IN[2]  <= WBL_DATA_IN2_r[4];
                             D_IN[3]  <= WBL_DATA_IN3_r[4];
@@ -1413,8 +1413,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[4];
                             D_IN[16]  <= WBL_DATA_IN16_r[4];
                         end
-                13'd825:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
-                13'd835:  begin 
+                13'd1640:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
+                13'd1660:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[12];
                             D_IN[2]  <= WBL_DATA_IN2_r[12];
@@ -1433,8 +1433,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[12];
                             D_IN[16]  <= WBL_DATA_IN16_r[12];
                         end
-                13'd845:  begin PC_D_IN[0] <= 1'b1; end
-                13'd855:  begin 
+                13'd1680:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1700:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[20];
                             D_IN[2]  <= WBL_DATA_IN2_r[20];
@@ -1453,8 +1453,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[20];
                             D_IN[16]  <= WBL_DATA_IN16_r[20];
                         end
-                13'd865:  begin PC_D_IN[0] <= 1'b1; end
-                13'd875:  begin 
+                13'd1720:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1740:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[28];
                             D_IN[2]  <= WBL_DATA_IN2_r[28];
@@ -1473,8 +1473,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[28];
                             D_IN[16]  <= WBL_DATA_IN16_r[28];
                         end
-                13'd885:  begin PC_D_IN[0] <= 1'b1; end
-                13'd895:  begin 
+                13'd1760:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1780:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[36];
                             D_IN[2]  <= WBL_DATA_IN2_r[36];
@@ -1493,8 +1493,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[36];
                             D_IN[16]  <= WBL_DATA_IN16_r[36];
                         end
-                13'd905:  begin PC_D_IN[0] <= 1'b1; end
-                13'd915:  begin 
+                13'd1800:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1820:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[44];
                             D_IN[2]  <= WBL_DATA_IN2_r[44];
@@ -1513,8 +1513,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[44];
                             D_IN[16]  <= WBL_DATA_IN16_r[44];
                         end
-                13'd925:  begin PC_D_IN[0] <= 1'b1; end
-                13'd935:  begin 
+                13'd1840:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1860:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[52];
                             D_IN[2]  <= WBL_DATA_IN2_r[52];
@@ -1533,8 +1533,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[52];
                             D_IN[16]  <= WBL_DATA_IN16_r[52];
                         end
-                13'd945:  begin PC_D_IN[0] <= 1'b1; end
-                13'd955:  begin 
+                13'd1880:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1900:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[60];
                             D_IN[2]  <= WBL_DATA_IN2_r[60];
@@ -1553,27 +1553,27 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[60];
                             D_IN[16]  <= WBL_DATA_IN16_r[60];
                         end
-                13'd965:  begin PC_D_IN[0] <= 1'b1; end
-                13'd975: begin PC_D_IN[0] <= 1'b0; end
-                13'd985: begin end
-                13'd995: begin PC_D_IN[0] <= 1'b0; end
+                13'd1920:  begin PC_D_IN[0] <= 1'b1; end
+                13'd1940: begin PC_D_IN[0] <= 1'b0; end
+                13'd1960: begin end
+                13'd1980: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd996: begin 
+                13'd1982: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd998: begin
+                13'd1984: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd1000: begin
+                13'd1986: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 6 轮（索引 5,13,21,29,37,45,53,61） =================
-                13'd1005:   begin
+                13'd2000:   begin
                             PC_D_IN[0] <= 1'b0; clk_out_WT <= 1'b0; DATA_VALID_IN<=1;
                         end
-                13'd1006:   begin end
-                13'd1007:   begin 
+                13'd2001:   begin end
+                13'd2002:   begin 
                             D_IN[1]  <= WBL_DATA_IN1_r[5];
                             D_IN[2]  <= WBL_DATA_IN2_r[5];
                             D_IN[3]  <= WBL_DATA_IN3_r[5];
@@ -1591,8 +1591,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[5];
                             D_IN[16]  <= WBL_DATA_IN16_r[5];
                         end
-                13'd1026:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
-                13'd1036:  begin 
+                13'd2040:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
+                13'd2060:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[13];
                             D_IN[2]  <= WBL_DATA_IN2_r[13];
@@ -1611,8 +1611,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[13];
                             D_IN[16]  <= WBL_DATA_IN16_r[13];
                         end
-                13'd1046:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1056:  begin 
+                13'd2080:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2100:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[21];
                             D_IN[2]  <= WBL_DATA_IN2_r[21];
@@ -1631,8 +1631,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[21];
                             D_IN[16]  <= WBL_DATA_IN16_r[21];
                         end
-                13'd1066:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1076:  begin 
+                13'd2120:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2140:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[29];
                             D_IN[2]  <= WBL_DATA_IN2_r[29];
@@ -1651,8 +1651,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[29];
                             D_IN[16]  <= WBL_DATA_IN16_r[29];
                         end
-                13'd1086:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1096:  begin 
+                13'd2160:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2180:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[37];
                             D_IN[2]  <= WBL_DATA_IN2_r[37];
@@ -1671,8 +1671,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[37];
                             D_IN[16]  <= WBL_DATA_IN16_r[37];
                         end
-                13'd1106:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1116:  begin 
+                13'd2200:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2220:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[45];
                             D_IN[2]  <= WBL_DATA_IN2_r[45];
@@ -1691,8 +1691,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[45];
                             D_IN[16]  <= WBL_DATA_IN16_r[45];
                         end
-                13'd1126:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1136:  begin 
+                13'd2240:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2260:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[53];
                             D_IN[2]  <= WBL_DATA_IN2_r[53];
@@ -1711,8 +1711,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[53];
                             D_IN[16]  <= WBL_DATA_IN16_r[53];
                         end
-                13'd1146:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1156:  begin 
+                13'd2280:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2300:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[61];
                             D_IN[2]  <= WBL_DATA_IN2_r[61];
@@ -1731,27 +1731,27 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[61];
                             D_IN[16]  <= WBL_DATA_IN16_r[61];
                         end
-                13'd1166:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1176: begin PC_D_IN[0] <= 1'b0; end
-                13'd1186: begin end
-                13'd1196: begin PC_D_IN[0] <= 1'b0; end
+                13'd2320:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2340: begin PC_D_IN[0] <= 1'b0; end
+                13'd2360: begin end
+                13'd2380: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd1197: begin 
+                13'd2382: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd1198: begin
+                13'd2384: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd1200: begin
+                13'd2386: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 7 轮（索引 6,14,22,30,38,46,54,62） =================
-                13'd1206:   begin
+                13'd2400:   begin
                             PC_D_IN[0] <= 1'b0; clk_out_WT <= 1'b0; DATA_VALID_IN<=1;
                         end
-                13'd1207:   begin end
-                13'd1208:   begin 
+                13'd2401:   begin end
+                13'd2402:   begin 
                             D_IN[1]  <= WBL_DATA_IN1_r[6];
                             D_IN[2]  <= WBL_DATA_IN2_r[6];
                             D_IN[3]  <= WBL_DATA_IN3_r[6];
@@ -1769,8 +1769,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[6];
                             D_IN[16]  <= WBL_DATA_IN16_r[6];
                         end
-                13'd1227:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
-                13'd1237:  begin 
+                13'd2440:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
+                13'd2460:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[14];
                             D_IN[2]  <= WBL_DATA_IN2_r[14];
@@ -1789,8 +1789,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[14];
                             D_IN[16]  <= WBL_DATA_IN16_r[14];
                         end
-                13'd1247:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1257:  begin 
+                13'd2480:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2500:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[22];
                             D_IN[2]  <= WBL_DATA_IN2_r[22];
@@ -1809,8 +1809,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[22];
                             D_IN[16]  <= WBL_DATA_IN16_r[22];
                         end
-                13'd1267:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1277:  begin 
+                13'd2520:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2540:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[30];
                             D_IN[2]  <= WBL_DATA_IN2_r[30];
@@ -1829,8 +1829,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[30];
                             D_IN[16]  <= WBL_DATA_IN16_r[30];
                         end
-                13'd1287:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1297:  begin 
+                13'd2560:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2580:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[38];
                             D_IN[2]  <= WBL_DATA_IN2_r[38];
@@ -1849,8 +1849,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[38];
                             D_IN[16]  <= WBL_DATA_IN16_r[38];
                         end
-                13'd1307:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1317:  begin 
+                13'd2600:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2620:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[46];
                             D_IN[2]  <= WBL_DATA_IN2_r[46];
@@ -1869,8 +1869,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[46];
                             D_IN[16]  <= WBL_DATA_IN16_r[46];
                         end
-                13'd1327:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1337:  begin 
+                13'd2640:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2660:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[54];
                             D_IN[2]  <= WBL_DATA_IN2_r[54];
@@ -1889,8 +1889,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[54];
                             D_IN[16]  <= WBL_DATA_IN16_r[54];
                         end
-                13'd1347:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1357:  begin 
+                13'd2680:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2700:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[62];
                             D_IN[2]  <= WBL_DATA_IN2_r[62];
@@ -1909,27 +1909,27 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[62];
                             D_IN[16]  <= WBL_DATA_IN16_r[62];
                         end
-                13'd1367:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1377: begin PC_D_IN[0] <= 1'b0; end
-                13'd1387: begin end
-                13'd1397: begin PC_D_IN[0] <= 1'b0; end
+                13'd2720:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2740: begin PC_D_IN[0] <= 1'b0; end
+                13'd2760: begin end
+                13'd2780: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd1398: begin 
+                13'd2782: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd1400: begin
+                13'd2784: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd1402: begin
+                13'd2786: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止
                         end
                 // ================= 第 8 轮（索引 7,15,23,31,39,47,55,63） =================
-                13'd1407:   begin
+                13'd2800:   begin
                             PC_D_IN[0] <= 1'b0; clk_out_WT <= 1'b0; DATA_VALID_IN<=1;
                         end
-                13'd1408:   begin end
-                13'd1409:   begin 
+                13'd2801:   begin end
+                13'd2802:   begin 
                             D_IN[1]  <= WBL_DATA_IN1_r[7];
                             D_IN[2]  <= WBL_DATA_IN2_r[7];
                             D_IN[3]  <= WBL_DATA_IN3_r[7];
@@ -1947,8 +1947,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[7];
                             D_IN[16]  <= WBL_DATA_IN16_r[7];
                         end
-                13'd1428:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
-                13'd1438:  begin 
+                13'd2840:  begin PC_D_IN[0] <= 1'b1; end // 第一层CLK↑
+                13'd2860:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[15];
                             D_IN[2]  <= WBL_DATA_IN2_r[15];
@@ -1967,8 +1967,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[15];
                             D_IN[16]  <= WBL_DATA_IN16_r[15];
                         end
-                13'd1448:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1458:  begin 
+                13'd2880:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2900:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[23];
                             D_IN[2]  <= WBL_DATA_IN2_r[23];
@@ -1987,8 +1987,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[23];
                             D_IN[16]  <= WBL_DATA_IN16_r[23];
                         end
-                13'd1468:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1478:  begin 
+                13'd2920:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2940:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[31];
                             D_IN[2]  <= WBL_DATA_IN2_r[31];
@@ -2007,8 +2007,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[31];
                             D_IN[16]  <= WBL_DATA_IN16_r[31];
                         end
-                13'd1488:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1498:  begin 
+                13'd2960:  begin PC_D_IN[0] <= 1'b1; end
+                13'd2980:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[39];
                             D_IN[2]  <= WBL_DATA_IN2_r[39];
@@ -2027,8 +2027,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[39];
                             D_IN[16]  <= WBL_DATA_IN16_r[39];
                         end
-                13'd1508:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1518:  begin 
+                13'd3000:  begin PC_D_IN[0] <= 1'b1; end
+                13'd3020:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[47];
                             D_IN[2]  <= WBL_DATA_IN2_r[47];
@@ -2047,8 +2047,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[47];
                             D_IN[16]  <= WBL_DATA_IN16_r[47];
                         end
-                13'd1528:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1538:  begin 
+                13'd3040:  begin PC_D_IN[0] <= 1'b1; end
+                13'd3060:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[55];
                             D_IN[2]  <= WBL_DATA_IN2_r[55];
@@ -2067,8 +2067,8 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[55];
                             D_IN[16]  <= WBL_DATA_IN16_r[55];
                         end
-                13'd1548:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1558:  begin 
+                13'd3080:  begin PC_D_IN[0] <= 1'b1; end
+                13'd3100:  begin 
                             PC_D_IN[0] <= 1'b0; 
                             D_IN[1]  <= WBL_DATA_IN1_r[63];
                             D_IN[2]  <= WBL_DATA_IN2_r[63];
@@ -2087,80 +2087,80 @@ module DRAM_write_read_16core(
                             D_IN[15]  <= WBL_DATA_IN15_r[63];
                             D_IN[16]  <= WBL_DATA_IN16_r[63];
                         end
-                13'd1568:  begin PC_D_IN[0] <= 1'b1; end
-                13'd1578: begin PC_D_IN[0] <= 1'b0; end
-                13'd1588: begin end
-                13'd1598: begin PC_D_IN[0] <= 1'b0; end
+                13'd3120:  begin PC_D_IN[0] <= 1'b1; end
+                13'd3140: begin PC_D_IN[0] <= 1'b0; end
+                13'd3160: begin end
+                13'd3180: begin PC_D_IN[0] <= 1'b0; end
 
                 // ================= 第二层并转串——单次写周期 =================
-                13'd1599: begin 
+                13'd3182: begin 
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b0; // 使能串转并  
                         end
-                13'd1601: begin
+                13'd3184: begin
                             clk_out_WT <= 1'b1; DATA_VALID_IN <= 1'b0; // 保持使能  
                         end
-                13'd1603: begin
+                13'd3186: begin
                             clk_out_WT <= 1'b0; DATA_VALID_IN <= 1'b1; // 停止数据准备
                             // 输入地址的串转并
                             ADD_IN <= WWL_ADD_r[5]; ADD_VALID_IN <= 1'b0;// 有效是低电平
                         end
                 // 完成输入数据的串转并
                 // 准备输入地址的串转并
-                13'd1605: begin
+                13'd3188: begin
                             clk_out_WT <= 1'b1;
                         end
-                13'd1607: begin
+                13'd3190: begin
                             clk_out_WT <= 1'b0;
                             ADD_IN <= WWL_ADD_r[4];
                         end
-                13'd1609: begin
+                13'd3192: begin
                             clk_out_WT <= 1'b1;
                         end
-                13'd1611: begin
+                13'd3194: begin
                             clk_out_WT <= 1'b0;
                             ADD_IN <= WWL_ADD_r[3];
                         end
-                13'd1613: begin
+                13'd3196: begin
                             clk_out_WT <= 1'b1;
                         end
-                13'd1615: begin
+                13'd3198: begin
                             clk_out_WT <= 1'b0;
                             ADD_IN <= WWL_ADD_r[2];
                         end
-                13'd1617: begin
+                13'd3200: begin
                             clk_out_WT <= 1'b1;
                         end
-                13'd1619: begin
+                13'd3202: begin
                             clk_out_WT <= 1'b0;
                             ADD_IN <= WWL_ADD_r[1];
                         end
-                13'd1621: begin
+                13'd3204: begin
                             clk_out_WT <= 1'b1;
                         end
-                13'd1623: begin
+                13'd3206: begin
                             clk_out_WT <= 1'b0;
                             ADD_IN <= WWL_ADD_r[0];
                         end
-                13'd1625: begin
+                13'd3208: begin
                             clk_out_WT <= 1'b1;
                         end
-                13'd1627: begin
+                13'd3210: begin
                             clk_out_WT <= 1'b0;
                             ADD_VALID_IN <= 1'b1;// 结束地址移位
                         end
-                13'd1629: begin
+                13'd3212: begin
                             clk_out_WT <= 1'b1;
                         end
-                13'd1631: begin
+                13'd3214: begin
                             clk_out_WT <= 1'b0;
                         end
-                13'd1633: begin WRI_EN<=1;end
-                13'd1635: begin end
-                13'd1637: begin end
-                13'd1639: begin end
-                13'd1641: begin WRI_EN<=0; WR_flag<=0; end
-                13'd1643: begin  WT_DONE_r <= 1; end
-                13'd1645: begin  WT_DONE_r <= 0; end
+                13'd3216: begin WRI_EN<=1;end
+                13'd3218: begin end
+                13'd3220: begin end
+                13'd3222: begin end
+                13'd3224: begin WRI_EN<=0; WR_flag<=0; end
+                13'd3226: begin  WT_DONE_r <= 1; end
+                13'd3228: begin  WT_DONE_r <= 0; end
                 default: begin end
                 endcase
             end
@@ -2241,9 +2241,9 @@ module DRAM_write_read_16core(
                     R_AD[15] <= DEMUX_ADD15[1]; 
                     R_AD[16] <= DEMUX_ADD16[1]; 
                 end
-                13'd10: begin PC_R_AD[1] <= 1'b1; end// 取消复位
-                13'd20: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
-                13'd30: begin 
+                13'd20: begin PC_R_AD[1] <= 1'b1; end// 取消复位
+                13'd40: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
+                13'd60: begin 
                     PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  DEMUX_ADD1 [0]; 
                     R_AD[2] <=  DEMUX_ADD2 [0]; 
@@ -2262,8 +2262,8 @@ module DRAM_write_read_16core(
                     R_AD[15] <= DEMUX_ADD15[0]; 
                     R_AD[16] <= DEMUX_ADD16[0];
                 end 
-                13'd40: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
-                13'd50: begin 
+                13'd80: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
+                13'd100: begin 
                     PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [5]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [5]; 
@@ -2282,8 +2282,8 @@ module DRAM_write_read_16core(
                     R_AD[15] <= RWL_DEC_ADD15[5]; 
                     R_AD[16] <= RWL_DEC_ADD16[5];                     
                 end 
-                13'd60: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
-                13'd70: begin 
+                13'd120: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
+                13'd140: begin 
                     PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [4]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [4]; 
@@ -2302,8 +2302,8 @@ module DRAM_write_read_16core(
                     R_AD[15] <= RWL_DEC_ADD15[4]; 
                     R_AD[16] <= RWL_DEC_ADD16[4];                     
                 end 
-                13'd80: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
-                13'd90: begin 
+                13'd160: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
+                13'd180: begin 
                     PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [3]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [3]; 
@@ -2322,8 +2322,8 @@ module DRAM_write_read_16core(
                     R_AD[15] <= RWL_DEC_ADD15[3]; 
                     R_AD[16] <= RWL_DEC_ADD16[3];                     
                 end 
-                13'd100: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
-                13'd110: begin 
+                13'd200: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
+                13'd220: begin 
                     PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [2]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [2]; 
@@ -2342,8 +2342,8 @@ module DRAM_write_read_16core(
                     R_AD[15] <= RWL_DEC_ADD15[2]; 
                     R_AD[16] <= RWL_DEC_ADD16[2];                     
                 end 
-                13'd120: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
-                13'd130: begin 
+                13'd240: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
+                13'd260: begin 
                     PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [1]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [1]; 
@@ -2362,8 +2362,8 @@ module DRAM_write_read_16core(
                     R_AD[15] <= RWL_DEC_ADD15[1]; 
                     R_AD[16] <= RWL_DEC_ADD16[1];                     
                 end 
-                13'd140: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
-                13'd150: begin 
+                13'd280: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿 
+                13'd300: begin 
                     PC_R_AD[0] <= 1'b0; 
                     R_AD[1] <=  RWL_DEC_ADD1 [0]; 
                     R_AD[2] <=  RWL_DEC_ADD2 [0]; 
@@ -2382,23 +2382,23 @@ module DRAM_write_read_16core(
                     R_AD[15] <= RWL_DEC_ADD15[0]; 
                     R_AD[16] <= RWL_DEC_ADD16[0];                     
                 end 
-                13'd160: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿
-                13'd170: begin PC_R_AD[0] <= 1'b0; end
-                13'd171: begin end
-                13'd172: begin end
-                13'd173: begin REF_WWL<=0; RD_EN_pre<=1; end
-                13'd174: begin RD_EN_pre<=0; end
-                13'd175: begin REF_WWL<=1; end
+                13'd320: begin PC_R_AD[0] <= 1'b1; end // CLK上升沿
+                13'd340: begin PC_R_AD[0] <= 1'b0; end
+                13'd341: begin end
+                13'd342: begin end
+                13'd343: begin REF_WWL<=0; RD_EN_pre<=1; end
+                13'd344: begin RD_EN_pre<=0; end
+                13'd345: begin REF_WWL<=1; end
                 // 位串行寄存输出数据
                 // PC_DATA_CLK <= 1'b0;
                 // PC_DATA_CLK_INH <= 1'b0;
                 // PC_DATA_SHLD <= 1'b0;
                 // SH/LD保持一段时间来寄存输出 保持10ns以上
-                13'd176: begin end
-                13'd177: begin end
-                13'd178: begin end
-                13'd179: begin end
-                13'd180: begin 
+                13'd346: begin end
+                13'd347: begin end
+                13'd348: begin end
+                13'd349: begin end
+                13'd350: begin 
                     PC_DATA_CLK <= 1'b0;
                     DRAM_DATA_OUT1_r [0] <= DRAM16_data[1];
                     DRAM_DATA_OUT2_r [0] <= DRAM16_data[2];
@@ -2417,8 +2417,8 @@ module DRAM_write_read_16core(
                     DRAM_DATA_OUT15_r [0] <= DRAM16_data[15];
                     DRAM_DATA_OUT16_r [0] <= DRAM16_data[16];
                 end
-                13'd190: begin PC_DATA_CLK <= 1'b1; end
-                13'd200: begin 
+                13'd370: begin PC_DATA_CLK <= 1'b1; end
+                13'd390: begin 
                     PC_DATA_CLK <= 1'b0;
                     DRAM_DATA_OUT1_r [1] <= DRAM16_data[1];
                     DRAM_DATA_OUT2_r [1] <= DRAM16_data[2];
@@ -2437,8 +2437,8 @@ module DRAM_write_read_16core(
                     DRAM_DATA_OUT15_r [1] <= DRAM16_data[15];
                     DRAM_DATA_OUT16_r [1] <= DRAM16_data[16];
                 end
-                13'd210: begin PC_DATA_CLK <= 1'b1; end
-                13'd220: begin 
+                13'd410: begin PC_DATA_CLK <= 1'b1; end
+                13'd430: begin 
                     PC_DATA_CLK <= 1'b0;
                     DRAM_DATA_OUT1_r [2] <= DRAM16_data[1];
                     DRAM_DATA_OUT2_r [2] <= DRAM16_data[2];
@@ -2457,8 +2457,8 @@ module DRAM_write_read_16core(
                     DRAM_DATA_OUT15_r [2] <= DRAM16_data[15];
                     DRAM_DATA_OUT16_r [2] <= DRAM16_data[16];
                 end
-                13'd230: begin PC_DATA_CLK <= 1'b1; end
-                13'd240: begin 
+                13'd450: begin PC_DATA_CLK <= 1'b1; end
+                13'd470: begin 
                     PC_DATA_CLK <= 1'b0;
                     DRAM_DATA_OUT1_r [3] <= DRAM16_data[1];
                     DRAM_DATA_OUT2_r [3] <= DRAM16_data[2];
@@ -2477,8 +2477,8 @@ module DRAM_write_read_16core(
                     DRAM_DATA_OUT15_r [3] <= DRAM16_data[15];
                     DRAM_DATA_OUT16_r [3] <= DRAM16_data[16];
                 end
-                13'd250: begin PC_DATA_CLK <= 1'b1; end
-                13'd260: begin 
+                13'd490: begin PC_DATA_CLK <= 1'b1; end
+                13'd510: begin 
                     PC_DATA_CLK <= 1'b0;
                     DRAM_DATA_OUT1_r [4] <= DRAM16_data[1];
                     DRAM_DATA_OUT2_r [4] <= DRAM16_data[2];
@@ -2497,8 +2497,8 @@ module DRAM_write_read_16core(
                     DRAM_DATA_OUT15_r [4] <= DRAM16_data[15];
                     DRAM_DATA_OUT16_r [4] <= DRAM16_data[16];
                 end
-                13'd270: begin PC_DATA_CLK <= 1'b1; end
-                13'd280: begin 
+                13'd530: begin PC_DATA_CLK <= 1'b1; end
+                13'd550: begin 
                     PC_DATA_CLK <= 1'b0;
                     DRAM_DATA_OUT1_r [5] <= DRAM16_data[1];
                     DRAM_DATA_OUT2_r [5] <= DRAM16_data[2];
@@ -2517,8 +2517,8 @@ module DRAM_write_read_16core(
                     DRAM_DATA_OUT15_r [5] <= DRAM16_data[15];
                     DRAM_DATA_OUT16_r [5] <= DRAM16_data[16];
                 end
-                13'd290: begin PC_DATA_CLK <= 1'b1; end
-                13'd300: begin 
+                13'd570: begin PC_DATA_CLK <= 1'b1; end
+                13'd590: begin 
                     PC_DATA_CLK <= 1'b0;
                     DRAM_DATA_OUT1_r [6] <= DRAM16_data[1];
                     DRAM_DATA_OUT2_r [6] <= DRAM16_data[2];
@@ -2537,8 +2537,8 @@ module DRAM_write_read_16core(
                     DRAM_DATA_OUT15_r [6] <= DRAM16_data[15];
                     DRAM_DATA_OUT16_r [6] <= DRAM16_data[16];
                 end
-                13'd310: begin PC_DATA_CLK <= 1'b1; end
-                13'd320: begin 
+                13'd610: begin PC_DATA_CLK <= 1'b1; end
+                13'd630: begin 
                     PC_DATA_CLK <= 1'b0;
                     DRAM_DATA_OUT1_r [7] <= DRAM16_data[1];
                     DRAM_DATA_OUT2_r [7] <= DRAM16_data[2];
@@ -2558,8 +2558,8 @@ module DRAM_write_read_16core(
                     DRAM_DATA_OUT16_r [7] <= DRAM16_data[16];
                 end
                 // 读出完毕
-                13'd321: begin RD_DONE_r <= 1; end
-                13'd323: begin RD_DONE_r <= 0; end
+                13'd632: begin RD_DONE_r <= 1; end
+                13'd634: begin RD_DONE_r <= 0; end
                 default: begin end
                 endcase
             end
@@ -2577,11 +2577,11 @@ module DRAM_write_read_16core(
     (*dont_touch="yes"*)wire RD_EN5;
     (*dont_touch="yes"*)wire RD_EN6;
     (*dont_touch="yes"*)assign RD_EN1=RD_EN_pre&(!WR_flag);
+    (*dont_touch="yes"*)assign RD_EN=RD_EN1&(!WR_flag);
     (*dont_touch="yes"*)assign RD_EN2=RD_EN1&(!WR_flag);
     (*dont_touch="yes"*)assign RD_EN3=RD_EN2&(!WR_flag);
     (*dont_touch="yes"*)assign RD_EN4=RD_EN3&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN=RD_EN4&(!WR_flag);
-    (*dont_touch="yes"*)assign RD_EN5=RD_EN&(!WR_flag);
+    (*dont_touch="yes"*)assign RD_EN5=RD_EN4&(!WR_flag);
     (*dont_touch="yes"*)assign RD_EN6=RD_EN5&(!WR_flag);
     //(*dont_touch="yes"*)assign VSAEN=RD_EN6&(!WR_flag);
     (*dont_touch="yes"*)wire RD_EN7;
